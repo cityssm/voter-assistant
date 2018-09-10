@@ -4,7 +4,11 @@
 (function() {
   "use strict";
 
+  let addressLoaded = false;
+
   const addressForm_queryEle = document.getElementById("addressForm--query");
+  const addressResultsEle = document.getElementById("addressResults");
+  const addressDetailsEle = document.getElementById("addressDetails");
 
   const loadingHTML = "Loading... <i class=\"fas fa-spinner fa-spin\"></i>";
   const listGroupItem_loadingHTML = "<li class=\"list-group-item\">" + loadingHTML + "</li>";
@@ -17,8 +21,7 @@
      * Hide the content
      */
 
-    const addressDetailsEle = document.getElementById("addressDetails");
-    addressDetailsEle.style.display = "none";
+    addressDetailsEle.classList.add("d-none");
 
     /*
      * Get data from button
@@ -114,7 +117,17 @@
 
           candidateList_listGroups_ele.innerHTML = json.Positions.reduce(function(soFar, positionJSON) {
 
-            return soFar + "<h4>" + positionJSON.PositionName + "</h4>" +
+            return soFar + "<h4 class=\"clearfix mt-2\">" +
+              "<span class=\"float-left\">" + positionJSON.PositionName + "</span>" +
+              " <small class=\"float-right\">" +
+              "<span class=\"badge badge-secondary\">" +
+              positionJSON.Candidates.length + " candidate" + (positionJSON.Candidates.length === 1 ? "" : "s") +
+              "</span>" +
+              " <span class=\"badge badge-secondary\">" +
+              positionJSON.NumberPositions + " position" + (positionJSON.NumberPositions === 1 ? "" : "s") +
+              "</span>" +
+              "</small>" +
+              "</h4>" +
               "<ul class=\"list-group\">" + positionJSON.Candidates.reduce(reduceFn_candidate, "") + "</ul>";
           }, "");
         });
@@ -124,17 +137,37 @@
      * Show the content
      */
 
-    addressDetailsEle.style.display = "block";
+    addressLoaded = true;
+
+    addressDetailsEle.classList.remove("d-none");
+    addressDetailsEle.classList.remove("d-sm-none");
+    addressDetailsEle.classList.remove("d-xs-none");
+
+    /*
+     * Hide other buttons from results
+     */
+
+    addressResultsEle.classList.add("d-none");
+
+    addressForm_queryEle.value = buttonEle_address;
+
+    const buttonEles = addressResultsEle.getElementsByTagName("button");
+    let buttonIndex;
+
+    for (buttonIndex = 0; buttonIndex < buttonEles.length; buttonIndex += 1) {
+      if (buttonEles[buttonIndex].getAttribute("data-address") !== buttonEle_address) {
+        buttonEles[buttonIndex].outerHTML = "";
+        buttonIndex -= 1;
+      }
+    }
   }
 
   function getAddresses() {
 
-    const resultsListEle = document.getElementById("addressResults");
-
     const query = addressForm_queryEle.value;
 
     if (query.length === 0) {
-      resultsListEle.innerHTML = "<div class=\"list-group-item list-group-item-info\">" +
+      addressResultsEle.innerHTML = "<div class=\"list-group-item list-group-item-info\">" +
         "To get started, enter your address." +
         "</div>";
 
@@ -148,13 +181,13 @@
       .done(function(json) {
 
         if (json.length === 0) {
-          resultsListEle.innerHTML = "<div class=\"list-group-item list-group-item-danger\">" +
+          addressResultsEle.innerHTML = "<div class=\"list-group-item list-group-item-danger\">" +
             "There are no addresses available." +
             "</div>";
 
         } else {
 
-          resultsListEle.innerHTML = json.reduce(function(soFar, addressJSON) {
+          addressResultsEle.innerHTML = json.reduce(function(soFar, addressJSON) {
             return soFar + "<button class=\"list-group-item list-group-item-action\"" +
               " data-address=\"" + addressJSON.Address + "\"" +
               " data-street-number=\"" + addressJSON.StreetNumber + "\"" +
@@ -174,7 +207,7 @@
               "</button>";
           }, "");
 
-          const buttonEles = resultsListEle.getElementsByTagName("button");
+          const buttonEles = addressResultsEle.getElementsByTagName("button");
 
           let index;
           for (index = 0; index < buttonEles.length; index += 1) {
@@ -188,10 +221,35 @@
       });
   }
 
+  /*
+   * Initialize address search form
+   */
+
+  addressForm_queryEle.addEventListener("focus", function() {
+    addressResultsEle.classList.remove("d-none");
+
+    if (addressLoaded) {
+      addressDetailsEle.classList.add("d-md-block");
+      addressDetailsEle.classList.add("d-lg-block");
+      addressDetailsEle.classList.add("d-xl-block");
+    }
+
+    addressDetailsEle.classList.add("d-sm-none");
+    addressDetailsEle.classList.add("d-xs-none");
+  });
+
   addressForm_queryEle.addEventListener("keyup", function(inputEvent) {
     inputEvent.preventDefault();
     getAddresses();
   });
 
   getAddresses();
+
+  /*
+   * Initialize register modal
+   */
+
+  $("#modal--register").on("show.bs.modal", function() {
+    document.getElementById("register--iframe").setAttribute("src", "https://vrp.voterview.ca/g/" + document.body.getAttribute("data-county-mun"));
+  });
 }());

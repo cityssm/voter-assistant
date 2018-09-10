@@ -8,13 +8,16 @@
 
     <title><%=setting_page_title %></title>
   </head>
-  <body>
-    <header class="navbar navbar-dark bg-primary mb-2">
+  <body data-county-mun="<%=voterView_countyMun %>">
+    <header class="navbar navbar-dark bg-primary">
       <h1 class="navbar-brand mb-0"><%=setting_page_title %></h1>
+      <div class="navbar-nav">
+        <a class="nav-link" data-toggle="modal" href="#modal--register">Am I on the List?</a>
+      </div>
     </header>
     <div class="container-fluid">
       <div class="row">
-        <aside class="col-md-3 bg-light">
+        <aside class="col-md-3 bg-light pt-2">
           <form id="addressForm">
             <div class="input-group mb-2">
               <div class="input-group-prepend">
@@ -23,12 +26,12 @@
               <input class="form-control" id="addressForm--query" type="text" />
             </div>
           </form>
-          <div class="list-group" id="addressResults"></div>
+          <div class="list-group mb-2" id="addressResults"></div>
         </aside>
         <main class="col-md-9">
-          <article class="pt-2" id="addressDetails" style="display:none">
+          <article class="mb-2 d-none" id="addressDetails">
 
-            <h2 class="clearfix border-bottom mb-2 pb-2">
+            <h2 class="clearfix border-bottom mb-2 py-2 sticky-top bg-white">
               <span class="float-left" id="addressDetails--address"></span>
               <span class="float-right">
                 <span class="badge badge-info">Ward <span id="addressDetails--ward"></span></span>
@@ -39,24 +42,41 @@
             <div class="row">
               <div class="col-md">
                 <div id="votingLocations">
-                  <h3>Voting Locations</h3>
+                  <h3>
+                    <i class="fas fa-location-arrow"></i> Voting Locations
+                  </h3>
 
-                  <h4>Election Day</h3>
+                  <h4 class="mt-2">Election Day</h3>
                   <ul class="list-group" id="votingLocations--electionDay"></ul>
 
-                  <h4>Advanced Vote</h3>
+                  <h4 class="mt-2">Advanced Vote</h3>
                   <ul class="list-group" id="votingLocations--advanced"></ul>
                 </div>
               </div>
               <div class="col-md">
                 <div id="candidateList">
-                  <h3>Candidates</h3>
-                  <ul class="list-group" id="candidateList--listGroups"></ul>
+                  <h3>
+                    <i class="fas fa-users"></i> Candidates
+                  </h3>
+                  <div id="candidateList--listGroups"></div>
                 </div>
               </div>
             </div>
           </article>
         </main>
+      </div>
+    </div>
+
+    <div class="modal" id="modal--register">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <iframe id="register--iframe" frameborder="0" style="width:100%;height:calc(100vh - 160px);"></iframe>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
     </div>
 
