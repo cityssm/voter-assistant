@@ -80,8 +80,11 @@
                   votingLocationJSON.StartTime + " to " + votingLocationJSON.EndTime +
                   "</div>") +
                 ("<div class=\"col-sm\">" +
-                  votingLocationJSON.LocationName + "<br />" +
+                  (votingLocationJSON.LocationName === "" ? "" : votingLocationJSON.LocationName + "<br />") +
+                  "<a href=\"" + votingLocationJSON.MapLink + "\" title=\"Find this Location\" target=\"_blank\">" +
                   votingLocationJSON.Address1 +
+                  "</a>" +
+                  (votingLocationJSON.Address2 === "" ? "" : "<br />" + votingLocationJSON.Address2) +
                   "</div>") +
                 "</div>" +
                 "</li>";
@@ -224,9 +227,9 @@
    * Initialize address search form
    */
 
-   document.getElementById("addressForm").addEventListener("submit", function(formEvent) {
-     formEvent.preventDefault();
-   });
+  document.getElementById("addressForm").addEventListener("submit", function(formEvent) {
+    formEvent.preventDefault();
+  });
 
   document.getElementById("addressForm--resetBtn").addEventListener("click", function(buttonEvent) {
     buttonEvent.preventDefault();
