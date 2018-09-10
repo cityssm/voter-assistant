@@ -1,7 +1,7 @@
 /* global window, document */
 
 
-(function() {
+$(document).ready(function() {
   "use strict";
 
   let addressLoaded = false;
@@ -264,4 +264,4 @@
   $("#modal--register").on("show.bs.modal", function() {
     document.getElementById("register--iframe").setAttribute("src", "https://vrp.voterview.ca/g/" + document.body.getAttribute("data-county-mun"));
   });
-}());
+});
