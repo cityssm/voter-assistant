@@ -239,8 +239,9 @@ $(document).ready(function() {
         }
       })
       .fail(function() {
-        // eslint-disable-next-line no-alert
-        window.alert("An error occurred communicating with VoterView.  Please refresh your browser and try again.");
+        // eslint-disable-next-line no-console
+        window.console.log("An error occurred communicating with VoterView.");
+
       });
   }
 
