@@ -1,6 +1,10 @@
 # voter-assistant
 An easy-to-use, one page tool relying on the VoterView Web Services API.
 
+## See It Running
+
+[Sault Ste. Marie Voter Services on Azure](http://voter-assistant.azurewebsites.net/)
+
 ## Requirements
 
 This project aims to run with very little effort on older software,
