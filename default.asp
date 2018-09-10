@@ -11,8 +11,9 @@
   <body data-county-mun="<%=voterView_countyMun %>">
     <header class="navbar navbar-dark bg-primary">
       <h1 class="navbar-brand mb-0"><%=setting_page_title %></h1>
-      <div class="navbar-nav">
-        <a class="nav-link" data-toggle="modal" href="#modal--register">Am I on the List?</a>
+      <div class="navbar-nav ml-auto">
+        <a class="btn btn-secondary" data-toggle="modal" href="#modal--register">
+          <i class="fas fa-question-circle"></i> Am I on the List?</a>
       </div>
     </header>
     <div class="container-fluid">
@@ -24,9 +25,15 @@
                 <label class="input-group-text" for="addressForm--query">Address</label>
               </div>
               <input class="form-control" id="addressForm--query" type="text" />
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" id="addressForm--resetBtn" type="button">
+                  <span class="fas fa-times"></span>
+                  <span class="sr-only">Reset</span>
+                </button>
+              </div>
             </div>
           </form>
-          <div class="list-group mb-2" id="addressResults"></div>
+          <div class="list-group mb-2" id="addressResults" style="min-height:calc(100vh - 56px)"></div>
         </aside>
         <main class="col-md-9">
           <article class="mb-2 d-none" id="addressDetails">

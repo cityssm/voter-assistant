@@ -7,6 +7,7 @@
   let addressLoaded = false;
 
   const addressForm_queryEle = document.getElementById("addressForm--query");
+
   const addressResultsEle = document.getElementById("addressResults");
   const addressDetailsEle = document.getElementById("addressDetails");
 
@@ -140,8 +141,6 @@
     addressLoaded = true;
 
     addressDetailsEle.classList.remove("d-none");
-    addressDetailsEle.classList.remove("d-sm-none");
-    addressDetailsEle.classList.remove("d-xs-none");
 
     /*
      * Hide other buttons from results
@@ -225,17 +224,27 @@
    * Initialize address search form
    */
 
+   document.getElementById("addressForm").addEventListener("submit", function(formEvent) {
+     formEvent.preventDefault();
+   });
+
+  document.getElementById("addressForm--resetBtn").addEventListener("click", function(buttonEvent) {
+    buttonEvent.preventDefault();
+    addressForm_queryEle.value = "";
+    addressForm_queryEle.focus();
+    getAddresses();
+  });
+
+
+
   addressForm_queryEle.addEventListener("focus", function() {
     addressResultsEle.classList.remove("d-none");
 
     if (addressLoaded) {
       addressDetailsEle.classList.add("d-md-block");
-      addressDetailsEle.classList.add("d-lg-block");
-      addressDetailsEle.classList.add("d-xl-block");
     }
 
-    addressDetailsEle.classList.add("d-sm-none");
-    addressDetailsEle.classList.add("d-xs-none");
+    addressDetailsEle.classList.add("d-none");
   });
 
   addressForm_queryEle.addEventListener("keyup", function(inputEvent) {
