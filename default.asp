@@ -19,8 +19,8 @@
     <header class="navbar navbar-dark bg-primary">
       <h1 class="navbar-brand mb-0"><%=setting_page_title %></h1>
       <div class="navbar-nav ml-auto">
-        <a class="btn btn-secondary" data-toggle="modal" href="#modal--register">
-          <i class="fas fa-question-circle"></i> Am I on the List?</a>
+        <a class="btn btn-lg btn-secondary" data-toggle="modal" href="#modal--register">
+          <i class="fas fa-question-circle"></i> Am I on the Voters List?</a>
       </div>
     </header>
     <div class="container-fluid">
