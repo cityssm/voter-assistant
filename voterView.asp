@@ -1,30 +1,37 @@
 <!--#include file="inc/settings.asp"--><%
 
-requestParameters = ""
+  requestParameters = ""
 
-if (request.querystring("method") = "street_addresses") then
+  if (request.querystring("method") = "street_addresses") then
+    requestParameters = "query=" & Server.URLEncode(request.querystring("query"))
 
-  requestParameters = "query=" & Server.URLEncode(request.querystring("query"))
+  elseif (request.querystring("method") = "find_voting_locations") then
+    requestParameters = "streetNumber=" & Server.URLEncode(request.querystring("streetNumber")) & _
+      "&streetName=" & Server.URLEncode(request.querystring("streetName"))
 
-else
-  response.status = "403 Forbidden"
-  response.end
+  elseif (request.querystring("method") = "candidate_list") then
+    requestParameters = "ward=" & Server.URLEncode(request.querystring("ward")) & _
+      "&nominationDateFrom=" & voterView_candidateList_nominationDateFrom & _
+      "&nominationDateTo=" & voterView_candidateList_nominationDateTo
 
-end if
+  else
+    response.status = "403 Forbidden"
+    response.end
 
-Set http = Server.CreateObject("MSXML2.ServerXMLHTTP")
-'http.setOption 2, 13056
+  end if
 
-http.Open "GET", _
-  voterView_baseURL & request.querystring("method") & "?" & requestParameters, _
-  False, _
-  voterView_userName, _
-  voterView_password
+  Set http = Server.CreateObject("MSXML2.ServerXMLHTTP")
 
-http.send
+  http.Open "GET", _
+    voterView_baseURL & request.querystring("method") & "?" & requestParameters, _
+    False, _
+    voterView_userName, _
+    voterView_password
 
-response.expires = 60
-response.contentType = "application/json"
+  http.send
 
-response.write http.responseText
+  response.expires = 60
+  response.contentType = "application/json"
+
+  response.write http.responseText
 %>

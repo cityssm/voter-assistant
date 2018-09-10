@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <title><%=setting_page_title %></title>
   </head>
@@ -13,7 +14,7 @@
     </header>
     <div class="container-fluid">
       <div class="row">
-        <aside class="col-md-3">
+        <aside class="col-md-3 bg-light">
           <form id="addressForm">
             <div class="input-group mb-2">
               <div class="input-group-prepend">
@@ -25,8 +26,35 @@
           <div class="list-group" id="addressResults"></div>
         </aside>
         <main class="col-md-9">
-          <article id="addressDetails" style="display:none">
-            <h2 id="addressDetails--address"></h2>
+          <article class="pt-2" id="addressDetails" style="display:none">
+
+            <h2 class="clearfix border-bottom mb-2 pb-2">
+              <span class="float-left" id="addressDetails--address"></span>
+              <span class="float-right">
+                <span class="badge badge-info">Ward <span id="addressDetails--ward"></span></span>
+                <span class="badge badge-info">Poll <span id="addressDetails--poll"></span></span>
+              </span>
+            </h2>
+
+            <div class="row">
+              <div class="col-md">
+                <div id="votingLocations">
+                  <h3>Voting Locations</h3>
+
+                  <h4>Election Day</h3>
+                  <ul class="list-group" id="votingLocations--electionDay"></ul>
+
+                  <h4>Advanced Vote</h3>
+                  <ul class="list-group" id="votingLocations--advanced"></ul>
+                </div>
+              </div>
+              <div class="col-md">
+                <div id="candidateList">
+                  <h3>Candidates</h3>
+                  <ul class="list-group" id="candidateList--listGroups"></ul>
+                </div>
+              </div>
+            </div>
           </article>
         </main>
       </div>
