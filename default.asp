@@ -25,7 +25,7 @@
     </header>
     <div class="container-fluid">
       <div class="row">
-        <aside class="col-md-3 bg-light pt-2">
+        <aside class="col-lg-3 bg-light pt-2">
           <form id="addressForm">
             <div class="input-group mb-2">
               <div class="input-group-prepend">
@@ -42,7 +42,7 @@
           </form>
           <div class="list-group mb-2" id="addressResults" style="min-height:calc(100vh - 56px)"></div>
         </aside>
-        <main class="col-md-9">
+        <main class="col-lg-9">
           <article class="mb-2 d-none" id="addressDetails">
 
             <h2 class="clearfix border-bottom mb-2 py-2 sticky-top bg-white">

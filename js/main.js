@@ -266,7 +266,7 @@ $(document).ready(function() {
     addressResultsEle.classList.remove("d-none");
 
     if (addressLoaded) {
-      addressDetailsEle.classList.add("d-md-block");
+      addressDetailsEle.classList.add("d-lg-block");
     }
 
     addressDetailsEle.classList.add("d-none");
