@@ -14,6 +14,27 @@ $(document).ready(function() {
   const loadingHTML = "Loading... <i class=\"fas fa-spinner fa-spin\"></i>";
   const listGroupItem_loadingHTML = "<li class=\"list-group-item\">" + loadingHTML + "</li>";
 
+  //http://davidwalsh.name/javascript-debounce-function
+  function debounce(func, wait, immediate) {
+    let timeout;
+    return function() {
+      let context = this,
+        args = arguments;
+      let later = function() {
+        timeout = null;
+        if (!immediate) {
+          func.apply(context, args);
+        }
+      };
+      let callNow = immediate && !timeout;
+      window.clearTimeout(timeout);
+      timeout = window.setTimeout(later, wait);
+      if (callNow) {
+        func.apply(context, args);
+      }
+    };
+  }
+
   function selectAddress(buttonEvent) {
 
     buttonEvent.preventDefault();
@@ -250,10 +271,9 @@ $(document).ready(function() {
     addressDetailsEle.classList.add("d-none");
   });
 
-  addressForm_queryEle.addEventListener("keyup", function(inputEvent) {
-    inputEvent.preventDefault();
+  addressForm_queryEle.addEventListener("keyup", debounce(function() {
     getAddresses();
-  });
+  }, 200));
 
   getAddresses();
 
