@@ -1,4 +1,5 @@
-<%@ Language="VBScript" %><!--#include file="inc/settings.asp"--><!doctype html>
+<%@ Language="VBScript" %>
+<!--#include file="inc/settings.asp"--><!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">

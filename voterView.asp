@@ -1,4 +1,5 @@
-<%@ Language="VBScript" %><!--#include file="inc/settings.asp"--><%
+<%@ Language="VBScript" %>
+<!--#include file="inc/settings.asp"--><%
 
   requestParameters = ""
 
