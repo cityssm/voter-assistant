@@ -1,4 +1,4 @@
-/* global window, document */
+/* global window, document, iFrameResize */
 
 
 $(document).ready(function() {
@@ -294,6 +294,13 @@ $(document).ready(function() {
    */
 
   $("#modal--register").on("show.bs.modal", function() {
-    document.getElementById("register--iframe").setAttribute("src", "https://vrp.voterview.ca/g/" + document.body.getAttribute("data-county-mun"));
+    const iframeEle = document.getElementById("register--iframe");
+    iframeEle.setAttribute("src", "https://vrp.voterview.ca/g/" + document.body.getAttribute("data-county-mun"));
+    try {
+      iFrameResize();
+    }
+    catch (e) {
+      // ignore
+    }
   });
 });

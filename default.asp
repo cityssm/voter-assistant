@@ -99,7 +99,7 @@
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-body">
-              <iframe id="register--iframe" frameborder="0" style="width:100%;max-height:calc(100vh - 160px);height:100vh"></iframe>
+              <iframe id="register--iframe" frameborder="0" style="width:100%;height:100vh"></iframe>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -111,7 +111,8 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
+    <script src="https://www.voterview.ca/mvvframes/v2/scripts/iframeResizer.min.js"></script>
     <script src="js/main.min.js"></script>
+
   </body>
 </html>
