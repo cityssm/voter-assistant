@@ -11,8 +11,10 @@ An easy-to-use, one page tool relying on the VoterView Web Services API.
 This project aims to run with very little effort on older software,
 a common case for municipalities.
 
-- IIS 8 or better
-- ASP scripting enabled
+- IIS 8 or better.
+- ASP scripting enabled.
+- VoterView Web Services API.
+- VoterView iFrame (for Voters List lookup).
 
 ## Getting Started
 
