@@ -69,10 +69,10 @@
                       <i class="fas fa-location-arrow"></i> Voting Locations
                     </h3>
 
-                    <h4 class="mt-2">Election Day</h3>
+                    <h4 class="mt-2">Election Day</h4>
                     <ul class="list-group" id="votingLocations--electionDay"></ul>
 
-                    <h4 class="mt-2">Advanced Vote</h3>
+                    <h4 class="mt-2">Advanced Vote</h4>
                     <ul class="list-group" id="votingLocations--advanced"></ul>
                   </section>
                 </div>
