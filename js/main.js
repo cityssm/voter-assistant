@@ -35,6 +35,7 @@ $(document).ready(function() {
     };
   }
 
+
   function selectAddress(buttonEvent) {
 
     buttonEvent.preventDefault();
@@ -185,6 +186,7 @@ $(document).ready(function() {
     }
   }
 
+
   function getAddresses() {
 
     const query = addressForm_queryEle.value;
@@ -253,13 +255,13 @@ $(document).ready(function() {
     formEvent.preventDefault();
   });
 
+
   document.getElementById("addressForm--resetBtn").addEventListener("click", function(buttonEvent) {
     buttonEvent.preventDefault();
     addressForm_queryEle.value = "";
     addressForm_queryEle.focus();
     getAddresses();
   });
-
 
 
   addressForm_queryEle.addEventListener("focus", function() {
@@ -272,11 +274,20 @@ $(document).ready(function() {
     addressDetailsEle.classList.add("d-none");
   });
 
+
   addressForm_queryEle.addEventListener("keyup", debounce(function() {
     getAddresses();
   }, 200));
 
+
   getAddresses();
+
+  /*
+   * Make site visible
+   */
+
+  document.getElementById("siteContainer").style.display = "block";
+
 
   /*
    * Initialize register modal

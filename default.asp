@@ -16,84 +16,94 @@
     </style>
   </head>
   <body data-county-mun="<%=voterView_countyMun %>">
-    <header class="navbar navbar-dark bg-primary">
-      <h1 class="navbar-brand mb-0"><%=setting_page_title %></h1>
-      <div class="navbar-nav ml-auto">
-        <a class="btn btn-lg btn-secondary" data-toggle="modal" href="#modal--register">
-          <i class="fas fa-question-circle"></i> Am I on the Voters List?</a>
+    <noscript>
+      <div class="container my-2">
+        <div class="alert alert-danger text-center">
+          <strong>This tool requires JavaScript to work.</strong><br />
+          Please enable JavaScript and try again.
+        </div>
       </div>
-    </header>
-    <div class="container-fluid">
-      <div class="row">
-        <aside class="col-lg-3 bg-light pt-2">
-          <form id="addressForm">
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="addressForm--query">Address</label>
+    </noscript>
+    <div id="siteContainer" style="display:none">
+      <header class="navbar navbar-dark bg-primary">
+        <h1 class="navbar-brand mb-0"><%=setting_page_title %></h1>
+        <div class="navbar-nav ml-auto">
+          <a class="btn btn-lg btn-secondary" data-toggle="modal" href="#modal--register">
+            <i class="fas fa-question-circle"></i> Am I on the Voters List?</a>
+        </div>
+      </header>
+      <div class="container-fluid">
+        <div class="row">
+          <aside class="col-lg-3 bg-light pt-2">
+            <form id="addressForm">
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="addressForm--query">Address</label>
+                </div>
+                <input class="form-control" id="addressForm--query" type="text" autocomplete="off" />
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" id="addressForm--resetBtn" type="button">
+                    <span class="fas fa-times"></span>
+                    <span class="sr-only">Reset</span>
+                  </button>
+                </div>
               </div>
-              <input class="form-control" id="addressForm--query" type="text" autocomplete="off" />
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" id="addressForm--resetBtn" type="button">
-                  <span class="fas fa-times"></span>
-                  <span class="sr-only">Reset</span>
-                </button>
+            </form>
+            <div class="list-group mb-2" id="addressResults" style="min-height:calc(100vh - 56px)"></div>
+          </aside>
+          <main class="col-lg-9">
+            <article class="mb-2 d-none" id="addressDetails">
+
+              <h2 class="clearfix border-bottom mb-2 py-2 sticky-top bg-white">
+                <span class="float-left" id="addressDetails--address"></span>
+                <span class="float-right">
+                  <span class="badge badge-info">Ward <span id="addressDetails--ward"></span></span>
+                  <span class="badge badge-info">Poll <span id="addressDetails--poll"></span></span>
+                </span>
+              </h2>
+
+              <div class="row">
+                <div class="col-md">
+                  <section id="votingLocations">
+                    <h3>
+                      <i class="fas fa-location-arrow"></i> Voting Locations
+                    </h3>
+
+                    <h4 class="mt-2">Election Day</h3>
+                    <ul class="list-group" id="votingLocations--electionDay"></ul>
+
+                    <h4 class="mt-2">Advanced Vote</h3>
+                    <ul class="list-group" id="votingLocations--advanced"></ul>
+                  </section>
+                </div>
+                <div class="col-md">
+                  <section id="candidateList">
+                    <h3>
+                      <i class="fas fa-users"></i> Candidates
+                    </h3>
+                    <div id="candidateList--listGroups"></div>
+                  </section>
+                </div>
               </div>
+            </article>
+          </main>
+        </div>
+      </div>
+      <footer class="bg-dark">
+        <div class="container-fluid py-3 text-white text-right">
+          <%=setting_footer_html %>
+        </div>
+      </footer>
+
+      <div class="modal" id="modal--register">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <iframe id="register--iframe" frameborder="0" style="width:100%;height:calc(100vh - 160px);"></iframe>
             </div>
-          </form>
-          <div class="list-group mb-2" id="addressResults" style="min-height:calc(100vh - 56px)"></div>
-        </aside>
-        <main class="col-lg-9">
-          <article class="mb-2 d-none" id="addressDetails">
-
-            <h2 class="clearfix border-bottom mb-2 py-2 sticky-top bg-white">
-              <span class="float-left" id="addressDetails--address"></span>
-              <span class="float-right">
-                <span class="badge badge-info">Ward <span id="addressDetails--ward"></span></span>
-                <span class="badge badge-info">Poll <span id="addressDetails--poll"></span></span>
-              </span>
-            </h2>
-
-            <div class="row">
-              <div class="col-md">
-                <section id="votingLocations">
-                  <h3>
-                    <i class="fas fa-location-arrow"></i> Voting Locations
-                  </h3>
-
-                  <h4 class="mt-2">Election Day</h3>
-                  <ul class="list-group" id="votingLocations--electionDay"></ul>
-
-                  <h4 class="mt-2">Advanced Vote</h3>
-                  <ul class="list-group" id="votingLocations--advanced"></ul>
-                </section>
-              </div>
-              <div class="col-md">
-                <section id="candidateList">
-                  <h3>
-                    <i class="fas fa-users"></i> Candidates
-                  </h3>
-                  <div id="candidateList--listGroups"></div>
-                </section>
-              </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
-          </article>
-        </main>
-      </div>
-    </div>
-    <footer class="bg-dark">
-      <div class="container-fluid py-3 text-white text-right">
-        <%=setting_footer_html %>
-      </div>
-    </footer>
-
-    <div class="modal" id="modal--register">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <iframe id="register--iframe" frameborder="0" style="width:100%;height:calc(100vh - 160px);"></iframe>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
