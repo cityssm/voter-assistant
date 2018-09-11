@@ -99,7 +99,7 @@
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-body">
-              <iframe id="register--iframe" frameborder="0" style="width:100%;height:calc(100vh - 160px);"></iframe>
+              <iframe id="register--iframe" frameborder="0" style="width:100%;max-height:calc(100vh - 160px);height:100vh"></iframe>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
