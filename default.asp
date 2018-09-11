@@ -54,7 +54,7 @@
           <main class="col-lg-9">
             <article class="mb-2 d-none" id="addressDetails">
 
-              <h2 class="clearfix border-bottom mb-2 py-2 sticky-top bg-white">
+              <h2 class="clearfix border-bottom py-2 sticky-top bg-white">
                 <span class="float-left" id="addressDetails--address"></span>
                 <span class="float-right">
                   <span class="badge badge-info">Ward <span id="addressDetails--ward"></span></span>
@@ -65,7 +65,7 @@
               <div class="row">
                 <div class="col-md">
                   <section id="votingLocations">
-                    <h3>
+                    <h3 class="mt-2">
                       <i class="fas fa-location-arrow"></i> Voting Locations
                     </h3>
 
@@ -78,7 +78,7 @@
                 </div>
                 <div class="col-md">
                   <section id="candidateList">
-                    <h3>
+                    <h3 class="mt-2">
                       <i class="fas fa-users"></i> Candidates
                     </h3>
                     <div id="candidateList--listGroups"></div>
