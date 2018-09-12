@@ -227,14 +227,25 @@ $(document).ready(function() {
         }, "json")
         .done(function(json) {
 
+          const noResultsHTML = "<div class=\"list-group-item list-group-item-danger\">" +
+            "<strong>There are no addresses available.</strong><br />" +
+            "Be sure to use a complete residential address with the civic number first." +
+            "</div>";
+
           if (json.length === 0) {
-            addressResultsEle.innerHTML = "<div class=\"list-group-item list-group-item-danger\">" +
-              "There are no addresses available." +
-              "</div>";
+            addressResultsEle.innerHTML = noResultsHTML;
 
           } else {
 
+            let resultsDisplayed = false;
+
             addressResultsEle.innerHTML = json.reduce(function(soFar, addressJSON) {
+
+              if (!addressJSON.StreetNumber) {
+                return soFar;
+              }
+
+              resultsDisplayed = true;
 
               const streetNameFull = (addressJSON.StreetName + " " +
                 addressJSON.StreetType + " " +
@@ -260,11 +271,17 @@ $(document).ready(function() {
                 "</button>";
             }, "");
 
-            const buttonEles = addressResultsEle.getElementsByTagName("button");
+            if (resultsDisplayed) {
 
-            let index;
-            for (index = 0; index < buttonEles.length; index += 1) {
-              buttonEles[index].addEventListener("click", selectAddress);
+              const buttonEles = addressResultsEle.getElementsByTagName("button");
+
+              let index;
+              for (index = 0; index < buttonEles.length; index += 1) {
+                buttonEles[index].addEventListener("click", selectAddress);
+              }
+
+            } else {
+              addressResultsEle.innerHTML = noResultsHTML;
             }
           }
 
