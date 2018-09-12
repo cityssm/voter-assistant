@@ -283,9 +283,7 @@ $(document).ready(function() {
   });
 
 
-  addressForm_queryEle.addEventListener("keyup", debounce(function() {
-    getAddresses();
-  }, 200));
+  addressForm_queryEle.addEventListener("keyup", debounce(getAddresses, 200));
 
 
   getAddresses();
