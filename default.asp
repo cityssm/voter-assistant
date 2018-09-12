@@ -40,7 +40,7 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="addressForm--query">Address</label>
                 </div>
-                <input class="form-control" id="addressForm--query" type="text" autocomplete="off" />
+                <input class="form-control" id="addressForm--query" type="text" autocomplete="off" pattern="^\d.*" />
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" id="addressForm--resetBtn" type="reset">
                     <i class="fas fa-fw fa-times"></i>

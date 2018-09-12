@@ -15,6 +15,8 @@ $(document).ready(function() {
   const loadingHTML = "Loading... <i class=\"fas fa-spinner fa-pulse\"></i>";
   const listGroupItem_loadingHTML = "<li class=\"list-group-item\">" + loadingHTML + "</li>";
 
+  const digitRegExp = /\d/;
+
   //http://davidwalsh.name/javascript-debounce-function
   function debounce(func, wait, immediate) {
     let timeout;
@@ -216,6 +218,13 @@ $(document).ready(function() {
 
       addressForm_query_current = query;
 
+      if (!digitRegExp.test(query.charAt(0))) {
+        addressResultsEle.innerHTML = "<div class=\"list-group-item list-group-item-danger\">" +
+          "Be sure to use a complete residential address with the civic number first." +
+          "</div>";
+        return;
+      }
+
       const resetBtn_iconEle = addressForm_resetBtn.getElementsByTagName("i")[0];
       resetBtn_iconEle.classList.add("fa-spinner");
       resetBtn_iconEle.classList.remove("fa-times");
@@ -326,6 +335,18 @@ $(document).ready(function() {
     }
 
     addressDetailsEle.classList.add("d-none");
+  });
+
+
+  addressForm_queryEle.addEventListener("input", function() {
+
+    const valueToTest = addressForm_queryEle.value.trim();
+
+    if (valueToTest.length === 0 || digitRegExp.test(addressForm_queryEle.value.charAt(0))) {
+      addressForm_queryEle.setCustomValidity("");
+    } else {
+      addressForm_queryEle.setCustomValidity("Addresses should include civic number first.");
+    }
   });
 
 
