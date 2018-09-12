@@ -59,7 +59,8 @@ $(document).ready(function() {
     const buttonEle_address = buttonEle.getAttribute("data-address");
 
     const buttonEle_streetNumber = buttonEle.getAttribute("data-street-number");
-    const buttonEle_streetName = buttonEle.getAttribute("data-street-name");
+    //const buttonEle_streetName = buttonEle.getAttribute("data-street-name");
+    const buttonEle_streetNameFull = buttonEle.getAttribute("data-street-name-full");
     const buttonEle_ward = buttonEle.getAttribute("data-ward");
     const buttonEle_poll = buttonEle.getAttribute("data-poll");
 
@@ -87,7 +88,7 @@ $(document).ready(function() {
       $.get("voterView.asp", {
           "method": "find_voting_locations",
           "streetNumber": buttonEle_streetNumber,
-          "streetName": buttonEle_streetName
+          "streetName": buttonEle_streetNameFull
         }, "json")
         .done(function(json) {
 
@@ -234,10 +235,16 @@ $(document).ready(function() {
           } else {
 
             addressResultsEle.innerHTML = json.reduce(function(soFar, addressJSON) {
+
+              const streetNameFull = (addressJSON.StreetName + " " +
+                addressJSON.StreetType + " " +
+                addressJSON.StreetDirection).trim();
+
               return soFar + "<button class=\"list-group-item list-group-item-action\"" +
                 " data-address=\"" + addressJSON.Address + "\"" +
                 " data-street-number=\"" + addressJSON.StreetNumber + "\"" +
                 " data-street-name=\"" + addressJSON.StreetName + "\"" +
+                " data-street-name-full=\"" + streetNameFull + "\"" +
                 " data-ward=\"" + addressJSON.Ward + "\"" +
                 " data-poll=\"" + addressJSON.PollAndSuffix + "\"" +
                 " type=\"button\">" +
