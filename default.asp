@@ -43,7 +43,7 @@
                 <input class="form-control" id="addressForm--query" type="text" autocomplete="off" />
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" id="addressForm--resetBtn" type="reset">
-                    <span class="fas fa-times"></span>
+                    <i class="fas fa-fw fa-times"></i>
                     <span class="sr-only">Reset</span>
                   </button>
                 </div>

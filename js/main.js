@@ -12,7 +12,7 @@ $(document).ready(function() {
   const addressResultsEle = document.getElementById("addressResults");
   const addressDetailsEle = document.getElementById("addressDetails");
 
-  const loadingHTML = "Loading... <i class=\"fas fa-spinner fa-spin\"></i>";
+  const loadingHTML = "Loading... <i class=\"fas fa-spinner fa-pulse\"></i>";
   const listGroupItem_loadingHTML = "<li class=\"list-group-item\">" + loadingHTML + "</li>";
 
   //http://davidwalsh.name/javascript-debounce-function
@@ -215,6 +215,11 @@ $(document).ready(function() {
 
       addressForm_query_current = query;
 
+      const resetBtn_iconEle = addressForm_resetBtn.getElementsByTagName("i")[0];
+      resetBtn_iconEle.classList.add("fa-spinner");
+      resetBtn_iconEle.classList.remove("fa-times");
+      resetBtn_iconEle.classList.add("fa-pulse");
+
       $.get("voterView.asp", {
           "method": "street_addresses",
           "query": query
@@ -254,6 +259,10 @@ $(document).ready(function() {
             for (index = 0; index < buttonEles.length; index += 1) {
               buttonEles[index].addEventListener("click", selectAddress);
             }
+
+            resetBtn_iconEle.classList.remove("fa-pulse");
+            resetBtn_iconEle.classList.add("fa-times");
+            resetBtn_iconEle.classList.remove("fa-spinner");
           }
         })
         .fail(function() {
