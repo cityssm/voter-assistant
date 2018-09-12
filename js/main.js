@@ -259,11 +259,11 @@ $(document).ready(function() {
             for (index = 0; index < buttonEles.length; index += 1) {
               buttonEles[index].addEventListener("click", selectAddress);
             }
-
-            resetBtn_iconEle.classList.remove("fa-pulse");
-            resetBtn_iconEle.classList.add("fa-times");
-            resetBtn_iconEle.classList.remove("fa-spinner");
           }
+
+          resetBtn_iconEle.classList.remove("fa-pulse");
+          resetBtn_iconEle.classList.add("fa-times");
+          resetBtn_iconEle.classList.remove("fa-spinner");
         })
         .fail(function() {
           try {
