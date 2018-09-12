@@ -342,10 +342,14 @@ $(document).ready(function() {
 
     const valueToTest = addressForm_queryEle.value.trim();
 
-    if (valueToTest.length === 0 || digitRegExp.test(addressForm_queryEle.value.charAt(0))) {
-      addressForm_queryEle.setCustomValidity("");
-    } else {
-      addressForm_queryEle.setCustomValidity("Addresses should include civic number first.");
+    try {
+      if (valueToTest.length === 0 || digitRegExp.test(addressForm_queryEle.value.charAt(0))) {
+        addressForm_queryEle.setCustomValidity("");
+      } else {
+        addressForm_queryEle.setCustomValidity("Addresses should include civic number first.");
+      }
+    } catch (e) {
+      //ignore
     }
   });
 
