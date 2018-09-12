@@ -78,6 +78,8 @@ $(document).ready(function() {
       const votingLocations_advanced_ele = document.getElementById("votingLocations--advanced");
       votingLocations_advanced_ele.innerHTML = listGroupItem_loadingHTML;
 
+      const googleMapUrl_root = "https://www.google.com/maps/dir/" + encodeURIComponent(buttonEle_address) + "/";
+
       $.get("voterView.asp", {
           "method": "find_voting_locations",
           "streetNumber": buttonEle_streetNumber,
@@ -95,6 +97,12 @@ $(document).ready(function() {
 
             json.forEach(function(votingLocationJSON) {
 
+              let googleMapUrl = googleMapUrl_root +
+                encodeURIComponent(votingLocationJSON.Address1 + ", " +
+                  votingLocationJSON.City + ", " +
+                  votingLocationJSON.Province + " " +
+                  votingLocationJSON.PostalCode);
+
               let votingLocationHTML = "<li class=\"list-group-item\">" +
                 "<div class=\"row\">" +
                 ("<div class=\"col-sm\">" +
@@ -103,7 +111,7 @@ $(document).ready(function() {
                   "</div>") +
                 ("<div class=\"col-sm\">" +
                   (votingLocationJSON.LocationName === "" ? "" : votingLocationJSON.LocationName + "<br />") +
-                  "<a href=\"" + votingLocationJSON.MapLink + "\" title=\"Find this Location\" target=\"_blank\">" +
+                  "<a href=\"" + googleMapUrl + "\" title=\"Find this Location\" target=\"_blank\">" +
                   votingLocationJSON.Address1 +
                   "</a>" +
                   (votingLocationJSON.Address2 === "" ? "" : "<br />" + votingLocationJSON.Address2) +
@@ -298,8 +306,7 @@ $(document).ready(function() {
     iframeEle.setAttribute("src", "https://vrp.voterview.ca/g/" + document.body.getAttribute("data-county-mun"));
     try {
       iFrameResize();
-    }
-    catch (e) {
+    } catch (e) {
       // ignore
     }
   });
