@@ -241,7 +241,7 @@ $(document).ready(function() {
 
             addressResultsEle.innerHTML = json.reduce(function(soFar, addressJSON) {
 
-              if (!addressJSON.StreetNumber) {
+              if (addressJSON.StreetNumber === null) {
                 return soFar;
               }
 
