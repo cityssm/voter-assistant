@@ -7,6 +7,7 @@ $(document).ready(function() {
   let addressLoaded = false;
 
   const addressForm_queryEle = document.getElementById("addressForm--query");
+  const addressForm_resetBtn = document.getElementById("addressForm--resetBtn");
 
   const addressResultsEle = document.getElementById("addressResults");
   const addressDetailsEle = document.getElementById("addressDetails");
@@ -34,6 +35,9 @@ $(document).ready(function() {
       }
     };
   }
+
+
+  let addressForm_query_current = "";
 
 
   function selectAddress(buttonEvent) {
@@ -182,6 +186,7 @@ $(document).ready(function() {
     addressResultsEle.classList.add("d-none");
 
     addressForm_queryEle.value = buttonEle_address;
+    addressForm_query_current = buttonEle_address.toLowerCase();
 
     const buttonEles = addressResultsEle.getElementsByTagName("button");
     let buttonIndex;
@@ -197,62 +202,70 @@ $(document).ready(function() {
 
   function getAddresses() {
 
-    const query = addressForm_queryEle.value;
+    const query = addressForm_queryEle.value.trim().toLowerCase();
 
-    if (query.length === 0) {
+    if (query === "") {
       addressResultsEle.innerHTML = "<div class=\"list-group-item list-group-item-info\">" +
         "To get started, enter your address." +
         "</div>";
 
       return;
-    }
 
-    $.get("voterView.asp", {
-        "method": "street_addresses",
-        "query": query
-      }, "json")
-      .done(function(json) {
+    } else if (addressForm_query_current !== query) {
 
-        if (json.length === 0) {
-          addressResultsEle.innerHTML = "<div class=\"list-group-item list-group-item-danger\">" +
-            "There are no addresses available." +
-            "</div>";
+      addressForm_query_current = query;
 
-        } else {
+      $.get("voterView.asp", {
+          "method": "street_addresses",
+          "query": query
+        }, "json")
+        .done(function(json) {
 
-          addressResultsEle.innerHTML = json.reduce(function(soFar, addressJSON) {
-            return soFar + "<button class=\"list-group-item list-group-item-action\"" +
-              " data-address=\"" + addressJSON.Address + "\"" +
-              " data-street-number=\"" + addressJSON.StreetNumber + "\"" +
-              " data-street-name=\"" + addressJSON.StreetName + "\"" +
-              " data-ward=\"" + addressJSON.Ward + "\"" +
-              " data-poll=\"" + addressJSON.PollAndSuffix + "\"" +
-              " type=\"button\">" +
+          if (json.length === 0) {
+            addressResultsEle.innerHTML = "<div class=\"list-group-item list-group-item-danger\">" +
+              "There are no addresses available." +
+              "</div>";
 
-              "<div class=\"clearfix\">" +
-              "<strong class=\"float-left\">" + addressJSON.Address + "</strong>" +
-              ("<small class=\"float-right text-right\">" +
-                "Ward " + addressJSON.Ward + "<br />" +
-                "Poll " + addressJSON.PollAndSuffix +
-                "</small>") +
-              "</div>" +
+          } else {
 
-              "</button>";
-          }, "");
+            addressResultsEle.innerHTML = json.reduce(function(soFar, addressJSON) {
+              return soFar + "<button class=\"list-group-item list-group-item-action\"" +
+                " data-address=\"" + addressJSON.Address + "\"" +
+                " data-street-number=\"" + addressJSON.StreetNumber + "\"" +
+                " data-street-name=\"" + addressJSON.StreetName + "\"" +
+                " data-ward=\"" + addressJSON.Ward + "\"" +
+                " data-poll=\"" + addressJSON.PollAndSuffix + "\"" +
+                " type=\"button\">" +
 
-          const buttonEles = addressResultsEle.getElementsByTagName("button");
+                "<div class=\"clearfix\">" +
+                "<strong class=\"float-left\">" + addressJSON.Address + "</strong>" +
+                ("<small class=\"float-right text-right\">" +
+                  "Ward " + addressJSON.Ward + "<br />" +
+                  "Poll " + addressJSON.PollAndSuffix +
+                  "</small>") +
+                "</div>" +
 
-          let index;
-          for (index = 0; index < buttonEles.length; index += 1) {
-            buttonEles[index].addEventListener("click", selectAddress);
+                "</button>";
+            }, "");
+
+            const buttonEles = addressResultsEle.getElementsByTagName("button");
+
+            let index;
+            for (index = 0; index < buttonEles.length; index += 1) {
+              buttonEles[index].addEventListener("click", selectAddress);
+            }
           }
-        }
-      })
-      .fail(function() {
-        // eslint-disable-next-line no-console
-        window.console.log("An error occurred communicating with VoterView.");
+        })
+        .fail(function() {
+          try {
+            // eslint-disable-next-line no-console
+            window.console.log("An error occurred communicating with VoterView.");
+          } catch (e) {
+            // ignore
+          }
 
-      });
+        });
+    }
   }
 
   /*
@@ -264,7 +277,7 @@ $(document).ready(function() {
   });
 
 
-  document.getElementById("addressForm--resetBtn").addEventListener("click", function(buttonEvent) {
+  addressForm_resetBtn.addEventListener("click", function(buttonEvent) {
     buttonEvent.preventDefault();
     addressForm_queryEle.value = "";
     addressForm_queryEle.focus();
