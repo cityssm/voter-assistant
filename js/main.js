@@ -208,6 +208,9 @@ $(document).ready(function() {
     const query = addressForm_queryEle.value.trim().toLowerCase();
 
     if (query === "") {
+
+      addressForm_query_current = query;
+
       addressResultsEle.innerHTML = "<div class=\"list-group-item list-group-item-info\">" +
         "To get started, enter your address." +
         "</div>";
