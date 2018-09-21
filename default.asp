@@ -10,6 +10,10 @@
     <title><%=setting_page_title %></title>
 
     <style>
+      label {
+        font-weight: bold;
+      }
+
       button.list-group-item-action {
         cursor: pointer;
       }
@@ -36,16 +40,16 @@
         <div class="row">
           <aside class="col-lg-3 bg-light pt-2">
             <form id="addressForm">
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="addressForm--query">Address</label>
-                </div>
-                <input class="form-control" id="addressForm--query" type="text" autocomplete="off" pattern="^\d.*" />
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" id="addressForm--resetBtn" type="reset">
-                    <i class="fas fa-fw fa-times"></i>
-                    <span class="sr-only">Reset</span>
-                  </button>
+              <div class="form-group">
+                <label for="addressForm--query">Civic Address</label>
+                <div class="input-group mb-2">
+                  <input class="form-control" id="addressForm--query" type="text" autocomplete="off" pattern="^\d.*" />
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" id="addressForm--resetBtn" type="reset">
+                      <i class="fas fa-fw fa-times"></i>
+                      <span class="sr-only">Reset</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>
