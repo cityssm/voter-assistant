@@ -212,7 +212,8 @@ $(document).ready(function() {
       addressForm_query_current = query;
 
       addressResultsEle.innerHTML = "<div class=\"list-group-item list-group-item-info\">" +
-        "To get started, enter your address." +
+        "To get started, enter your address.<br />" +
+        "<em>i.e. 99 Foster Dr</em>" +
         "</div>";
 
       return;
