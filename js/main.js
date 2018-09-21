@@ -190,6 +190,8 @@ $(document).ready(function() {
     addressResultsEle.classList.add("d-none");
 
     addressForm_queryEle.value = buttonEle_address;
+    addressForm_queryEle.setCustomValidity("");
+
     addressForm_query_current = buttonEle_address.toLowerCase();
 
     const buttonEles = addressResultsEle.getElementsByTagName("button");
