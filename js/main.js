@@ -40,6 +40,7 @@ $(document).ready(function() {
 
 
   let addressForm_query_current = "";
+  let addressResults_hasNoResults = false;
 
 
   function selectAddress(buttonEvent) {
@@ -220,6 +221,16 @@ $(document).ready(function() {
 
     } else if (addressForm_query_current !== query) {
 
+      const noResultsHTML = "<div class=\"list-group-item list-group-item-danger\">" +
+        "<strong>There are no addresses available.</strong><br />" +
+        "Be sure to use a complete residential address with the civic number first." +
+        "</div>";
+
+      if (addressResults_hasNoResults && query.indexOf(addressForm_query_current) === 0) {
+        addressResultsEle.innerHTML = noResultsHTML;
+        return;
+      }
+
       addressForm_query_current = query;
 
       if (!digitRegExp.test(query.charAt(0))) {
@@ -234,19 +245,17 @@ $(document).ready(function() {
       resetBtn_iconEle.classList.remove("fa-times");
       resetBtn_iconEle.classList.add("fa-pulse");
 
+      addressResults_hasNoResults = false;
+
       $.get("voterView.asp", {
           "method": "street_addresses",
           "query": query
         }, "json")
         .done(function(json) {
 
-          const noResultsHTML = "<div class=\"list-group-item list-group-item-danger\">" +
-            "<strong>There are no addresses available.</strong><br />" +
-            "Be sure to use a complete residential address with the civic number first." +
-            "</div>";
-
           if (json.length === 0) {
             addressResultsEle.innerHTML = noResultsHTML;
+            addressResults_hasNoResults = true;
 
           } else {
 
