@@ -3,8 +3,7 @@ An easy-to-use, one page tool relying on the VoterView Web Services API.
 
 ## See It Running
 
-- [Sault Ste. Marie Voter Services](http://voter.saultstemarie.ca/voterServices/)
-- [Test Site Running on Azure](http://voter-assistant.azurewebsites.net/)
+- [Sault Ste. Marie Voter Services](https://voter.saultstemarie.ca/voterServices/)
 
 ## Requirements
 
