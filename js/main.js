@@ -127,17 +127,17 @@ $(document).ready(function() {
 
               let votingLocationHTML = "<li class=\"list-group-item\">" +
                 "<div class=\"row\">" +
-                ("<div class=\"col-sm\">" +
+                ("<p class=\"col-sm my-0\" aria-label=\"Voting location date and time\">" +
                   votingLocationJSON.DateOpenStringLocal + "<br />" +
                   votingLocationJSON.StartTime + " to " + votingLocationJSON.EndTime +
-                  "</div>") +
-                ("<div class=\"col-sm\">" +
+                  "</p>") +
+                ("<p class=\"col-sm my-0\" aria-label=\"Votting location address\">" +
                   (votingLocationJSON.LocationName === "" ? "" : votingLocationJSON.LocationName + "<br />") +
                   "<a href=\"" + googleMapUrl + "\" title=\"Find this Location\" target=\"_blank\">" +
                   votingLocationJSON.Address1 +
                   "</a>" +
                   (votingLocationJSON.Address2 === "" ? "" : "<br />" + votingLocationJSON.Address2) +
-                  "</div>") +
+                  "</p>") +
                 "</div>" +
                 "</li>";
 
@@ -207,6 +207,7 @@ $(document).ready(function() {
      */
 
     addressResultsEle.classList.add("d-none");
+    addressForm_queryEle.setAttribute("aria-expanded", "false");
 
     addressForm_queryEle.value = buttonEle_address;
     addressForm_queryEle.setCustomValidity("");
@@ -346,7 +347,7 @@ $(document).ready(function() {
                 addressJSON.StreetType + " " +
                 addressJSON.StreetDirection).trim();
 
-              return soFar + "<button class=\"list-group-item list-group-item-action\"" +
+              return soFar + "<button class=\"list-group-item list-group-item-action clearfix\"" +
                 " id=\"addressResults--" + index + "\"" +
                 " data-address=\"" + addressJSON.Address + "\"" +
                 " data-street-number=\"" + addressJSON.StreetNumber + "\"" +
@@ -361,13 +362,11 @@ $(document).ready(function() {
                 " aria-label=\"" + addressJSON.Address + "\"" +
                 ">" +
 
-                "<div class=\"clearfix\">" +
                 "<strong class=\"float-left\">" + addressJSON.Address + "</strong>" +
                 ("<small class=\"float-right text-right\">" +
                   "Ward " + addressJSON.Ward + "<br />" +
                   "Poll " + addressJSON.PollAndSuffix +
                   "</small>") +
-                "</div>" +
 
                 "</button>";
             }, "");
@@ -439,6 +438,8 @@ $(document).ready(function() {
     }
 
     addressDetailsEle.classList.add("d-none");
+
+    addressForm_queryEle.setAttribute("aria-expanded", "true");
   }
 
 

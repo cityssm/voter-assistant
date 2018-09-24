@@ -44,7 +44,7 @@
               <div class="form-group">
                 <label id="addressForm--query-label" for="addressForm--query">Civic Address</label>
                 <div class="input-group mb-2">
-                  <input class="form-control" id="addressForm--query" role="combobox" type="text" autocomplete="off" pattern="^\d.*" aria-autocomplete="inline" aria-owns="addressResults" aria-controls="addressDetails" />
+                  <input class="form-control" id="addressForm--query" role="combobox" type="text" autocomplete="off" pattern="^\d.*" aria-autocomplete="inline" aria-owns="addressResults" aria-controls="addressDetails" aria-expanded="true" />
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" id="addressForm--resetBtn" type="reset">
                       <i class="fas fa-fw fa-times"></i>
@@ -69,22 +69,22 @@
 
               <div class="row">
                 <div class="col-md">
-                  <section id="votingLocations">
-                    <h3 class="mt-2">
-                      <i class="fas fa-location-arrow"></i> Voting Locations
+                  <section id="votingLocations" aria-labelledby="votingLocations-label">
+                    <h3 class="mt-2" id="votingLocations-label">
+                      <i class="fas fa-location-arrow" aria-hidden="true"></i> Voting Locations
                     </h3>
 
-                    <h4 class="mt-2">Election Day</h4>
-                    <ul class="list-group" id="votingLocations--electionDay"></ul>
+                    <h4 class="mt-2" id="votingLocations--electionDay-label">Election Day</h4>
+                    <ul class="list-group" id="votingLocations--electionDay" aria-labelledby="votingLocations--electionDay-label"></ul>
 
-                    <h4 class="mt-2">Advanced Vote</h4>
-                    <ul class="list-group" id="votingLocations--advanced"></ul>
+                    <h4 class="mt-2" id="votingLocations--advanced-label">Advanced Vote</h4>
+                    <ul class="list-group" id="votingLocations--advanced" aria-labelledby="votingLocations--advanced-label"></ul>
                   </section>
                 </div>
                 <div class="col-md">
                   <section id="candidateList">
                     <h3 class="mt-2">
-                      <i class="fas fa-users"></i> Candidates
+                      <i class="fas fa-users" aria-hidden="true"></i> Candidates
                     </h3>
                     <div id="candidateList--listGroups"></div>
                   </section>
