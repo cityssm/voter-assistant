@@ -358,6 +358,7 @@ $(document).ready(function() {
                 " type=\"button\"" +
                 " aria-posinset=\"" + posInSet + "\"" +
                 " aria-selected=\"false\"" +
+                " aria-label=\"" + addressJSON.Address + "\"" +
                 ">" +
 
                 "<div class=\"clearfix\">" +
