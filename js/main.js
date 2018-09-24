@@ -52,6 +52,20 @@ $(document).ready(function() {
      */
 
     addressDetailsEle.classList.add("d-none");
+    addressDetailsEle.setAttribute("aria-live", "off");
+
+    /*
+     * Make the details area live again
+     */
+
+    let announceLocations = false;
+    let announceCandidates = false;
+
+    const announceFn = function() {
+      if (announceLocations && announceCandidates) {
+        addressDetailsEle.setAttribute("aria-live", "assertive");
+      }
+    };
 
     /*
      * Get data from button
@@ -132,10 +146,12 @@ $(document).ready(function() {
 
               } else {
                 votingLocations_electionDay_ele.insertAdjacentHTML("beforeend", votingLocationHTML);
-
               }
             });
           }
+
+          announceLocations = true;
+          announceFn();
         });
     }
 
@@ -172,6 +188,9 @@ $(document).ready(function() {
               "</h4>" +
               "<ul class=\"list-group\">" + positionJSON.Candidates.reduce(reduceFn_candidate, "") + "</ul>";
           }, "");
+
+          announceCandidates = true;
+          announceFn();
         });
     }
 
@@ -203,18 +222,68 @@ $(document).ready(function() {
         buttonIndex -= 1;
       }
     }
+
+    buttonEle.setAttribute("aria-selected", "true");
+    addressForm_queryEle.setAttribute("aria-activedescendant", buttonEle.id);
+  }
+
+
+  function switchButtonFocus(buttonKeyupEvent) {
+
+    const buttonEle = buttonKeyupEvent.currentTarget;
+
+    switch (buttonKeyupEvent.key) {
+
+      case "ArrowDown":
+
+        buttonEle.setAttribute("aria-selected", "false");
+
+        const nextButtonEle = buttonEle.nextElementSibling;
+
+        if (nextButtonEle) {
+          nextButtonEle.focus();
+          nextButtonEle.setAttribute("aria-selected", "true");
+          addressForm_queryEle.setAttribute("aria-activedescendant", nextButtonEle.id);
+        } else {
+          addressForm_queryEle.focus();
+
+          const firstButtonEle = addressResultsEle.getElementsByTagName("button")[0];
+          firstButtonEle.setAttribute("aria-selected", "true");
+          addressForm_queryEle.setAttribute("aria-activedescendant", firstButtonEle.id);
+        }
+
+        break;
+
+
+      case "ArrowUp":
+
+        buttonEle.setAttribute("aria-selected", "false");
+
+        const prevButtonEle = buttonEle.previousElementSibling;
+
+        if (prevButtonEle) {
+          prevButtonEle.focus();
+          prevButtonEle.setAttribute("aria-selected", "true");
+          addressForm_queryEle.setAttribute("aria-activedescendant", prevButtonEle.id);
+        } else {
+          addressForm_queryEle.focus();
+        }
+
+        break;
+    }
   }
 
 
   function getAddresses() {
 
     const query = addressForm_queryEle.value.trim().toLowerCase();
+    addressForm_queryEle.removeAttribute("aria-activedescendant");
 
     if (query === "") {
 
       addressForm_query_current = query;
 
-      addressResultsEle.innerHTML = "<div class=\"list-group-item list-group-item-info\">" +
+      addressResultsEle.innerHTML = "<div class=\"list-group-item list-group-item-info\" role=\"alert\">" +
         "To get started, enter your address.<br />" +
         "<em>i.e. 99 Foster Dr</em>" +
         "</div>";
@@ -223,7 +292,7 @@ $(document).ready(function() {
 
     } else if (addressForm_query_current !== query) {
 
-      const noResultsHTML = "<div class=\"list-group-item list-group-item-danger\">" +
+      const noResultsHTML = "<div class=\"list-group-item list-group-item-danger\" role=\"alert\">" +
         "<strong>There are no addresses available.</strong><br />" +
         "Be sure to use a complete residential address with the civic number first." +
         "</div>";
@@ -262,27 +331,34 @@ $(document).ready(function() {
           } else {
 
             let resultsDisplayed = false;
+            let posInSet = 0;
 
-            addressResultsEle.innerHTML = json.reduce(function(soFar, addressJSON) {
+            addressResultsEle.innerHTML = json.reduce(function(soFar, addressJSON, index) {
 
               if (addressJSON.StreetNumber === null) {
                 return soFar;
               }
 
               resultsDisplayed = true;
+              posInSet += 1;
 
               const streetNameFull = (addressJSON.StreetName + " " +
                 addressJSON.StreetType + " " +
                 addressJSON.StreetDirection).trim();
 
               return soFar + "<button class=\"list-group-item list-group-item-action\"" +
+                " id=\"addressResults--" + index + "\"" +
                 " data-address=\"" + addressJSON.Address + "\"" +
                 " data-street-number=\"" + addressJSON.StreetNumber + "\"" +
                 " data-street-name=\"" + addressJSON.StreetName + "\"" +
                 " data-street-name-full=\"" + streetNameFull + "\"" +
                 " data-ward=\"" + addressJSON.Ward + "\"" +
                 " data-poll=\"" + addressJSON.PollAndSuffix + "\"" +
-                " type=\"button\">" +
+                " role=\"option\"" +
+                " type=\"button\"" +
+                " aria-posinset=\"" + posInSet + "\"" +
+                " aria-selected=\"false\"" +
+                ">" +
 
                 "<div class=\"clearfix\">" +
                 "<strong class=\"float-left\">" + addressJSON.Address + "</strong>" +
@@ -295,13 +371,21 @@ $(document).ready(function() {
                 "</button>";
             }, "");
 
+
             if (resultsDisplayed) {
 
               const buttonEles = addressResultsEle.getElementsByTagName("button");
 
               let index;
               for (index = 0; index < buttonEles.length; index += 1) {
+
                 buttonEles[index].addEventListener("click", selectAddress);
+                buttonEles[index].addEventListener("keyup", switchButtonFocus);
+
+                if (index === 0) {
+                  buttonEles[index].setAttribute("aria-selected", "true");
+                  addressForm_queryEle.setAttribute("aria-activedescendant", buttonEles[index].id);
+                }
               }
 
             } else {
@@ -325,6 +409,9 @@ $(document).ready(function() {
     }
   }
 
+  const debounceFn_getAddresses = debounce(getAddresses, 200);
+
+
   /*
    * Initialize address search form
    */
@@ -342,7 +429,8 @@ $(document).ready(function() {
   });
 
 
-  addressForm_queryEle.addEventListener("focus", function() {
+  function fn_showAutocomplete() {
+
     addressResultsEle.classList.remove("d-none");
 
     if (addressLoaded) {
@@ -350,16 +438,59 @@ $(document).ready(function() {
     }
 
     addressDetailsEle.classList.add("d-none");
-  });
+  }
 
 
-  addressForm_queryEle.addEventListener("input", function() {
+  addressForm_queryEle.addEventListener("focus", fn_showAutocomplete);
+
+
+  addressForm_queryEle.addEventListener("keyup", function(inputEvent) {
+
+    fn_showAutocomplete();
+
+    switch (inputEvent.key) {
+
+      case "ArrowDown":
+      case "ArrowUp":
+
+        // Select the first element
+
+        const buttonEles = addressResultsEle.getElementsByTagName("button");
+
+        let buttonIndex;
+        for (buttonIndex = 0; buttonIndex < buttonEles.length; buttonIndex += 1) {
+
+          if (buttonIndex === 0) {
+            buttonEles[buttonIndex].focus();
+            buttonEles[buttonIndex].setAttribute("aria-selected", "true");
+            addressForm_queryEle.setAttribute("aria-activedescendant", buttonEles[buttonIndex].id);
+          } else {
+            buttonEles[buttonIndex].setAttribute("aria-selected", "false");
+          }
+        }
+
+        return;
+
+      case "Enter":
+
+        const activeID = addressForm_queryEle.getAttribute("aria-activedescendant");
+        if (activeID) {
+          try {
+            document.getElementById(activeID).click();
+          } catch (e) {
+            // ignore
+          }
+        }
+
+    }
 
     const valueToTest = addressForm_queryEle.value.trim();
 
     try {
-      if (valueToTest.length === 0 || digitRegExp.test(addressForm_queryEle.value.charAt(0))) {
+      if (valueToTest.length === 0 || digitRegExp.test(valueToTest.charAt(0))) {
         addressForm_queryEle.setCustomValidity("");
+        debounceFn_getAddresses();
+
       } else {
         addressForm_queryEle.setCustomValidity("Addresses should include civic number first.");
       }
@@ -367,9 +498,6 @@ $(document).ready(function() {
       //ignore
     }
   });
-
-
-  addressForm_queryEle.addEventListener("keyup", debounce(getAddresses, 200));
 
 
   getAddresses();

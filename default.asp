@@ -42,9 +42,9 @@
           <aside class="col-lg-3 bg-light pt-2">
             <form id="addressForm">
               <div class="form-group">
-                <label for="addressForm--query">Civic Address</label>
+                <label id="addressForm--query-label" for="addressForm--query">Civic Address</label>
                 <div class="input-group mb-2">
-                  <input class="form-control" id="addressForm--query" type="text" autocomplete="off" pattern="^\d.*" />
+                  <input class="form-control" id="addressForm--query" role="combobox" type="text" autocomplete="off" pattern="^\d.*" aria-autocomplete="inline" aria-owns="addressResults" aria-controls="addressDetails" />
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" id="addressForm--resetBtn" type="reset">
                       <i class="fas fa-fw fa-times"></i>
@@ -54,10 +54,10 @@
                 </div>
               </div>
             </form>
-            <div class="list-group mb-2" id="addressResults" style="min-height:calc(100vh - 56px)"></div>
+            <div class="list-group mb-2" id="addressResults" role="listbox" style="min-height:calc(100vh - 56px)" aria-labelledby="addressForm--query-label" aria-multiselectable="false"></div>
           </aside>
           <main class="col-lg-9">
-            <article class="mb-2 d-none" id="addressDetails">
+            <article class="mb-2 d-none" id="addressDetails" aria-live="off" aria-atomic="true" aria-relevant="all">
 
               <h2 class="clearfix border-bottom py-2 sticky-top bg-white">
                 <span class="float-left" id="addressDetails--address"></span>
