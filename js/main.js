@@ -125,7 +125,7 @@ $(document).ready(function() {
                   votingLocationJSON.Province + " " +
                   votingLocationJSON.PostalCode);
 
-              let votingLocationHTML = "<li class=\"list-group-item\">" +
+              let votingLocationHTML = "<li class=\"list-group-item\" role=\"listitem\">" +
                 "<div class=\"row\">" +
                 ("<p class=\"col-sm my-0\" aria-label=\"Voting location date and time\">" +
                   votingLocationJSON.DateOpenStringLocal + "<br />" +
@@ -164,7 +164,17 @@ $(document).ready(function() {
       candidateList_listGroups_ele.innerHTML = "<p>" + loadingHTML + "</p>";
 
       const reduceFn_candidate = function(soFar, candidateJSON) {
-        return soFar + "<li class=\"list-group-item\">" + candidateJSON.CandidateName + "</li>";
+
+        let candidateNameLabel = candidateJSON.CandidateName;
+
+        const candidateNameSplit = candidateJSON.CandidateName.split(",");
+        if (candidateNameSplit.length === 2) {
+          candidateNameLabel = candidateNameSplit[1].trim() + " " + candidateNameSplit[0];
+        }
+
+        return soFar + "<li class=\"list-group-item\" role=\"listitem\">" +
+          candidateNameLabel +
+          "</li>";
       };
 
       $.get("voterView.asp", {
@@ -173,10 +183,10 @@ $(document).ready(function() {
         }, "json")
         .done(function(json) {
 
-          candidateList_listGroups_ele.innerHTML = json.Positions.reduce(function(soFar, positionJSON) {
+          candidateList_listGroups_ele.innerHTML = json.Positions.reduce(function(soFar, positionJSON, positionIndex) {
 
             return soFar + "<h4 class=\"clearfix mt-2\">" +
-              "<span class=\"float-left\">" + positionJSON.PositionName + "</span>" +
+              "<span class=\"float-left\" id=\"candidateList--" + positionIndex + "_label\">" + positionJSON.PositionName + "</span>" +
               " <small class=\"float-right\">" +
               "<span class=\"badge badge-secondary\">" +
               positionJSON.Candidates.length + " candidate" + (positionJSON.Candidates.length === 1 ? "" : "s") +
@@ -186,7 +196,9 @@ $(document).ready(function() {
               "</span>" +
               "</small>" +
               "</h4>" +
-              "<ul class=\"list-group\">" + positionJSON.Candidates.reduce(reduceFn_candidate, "") + "</ul>";
+              ("<ul class=\"list-group\" role=\"list\" aria-labelledby=\"candidateList--" + positionIndex + "_label\">" +
+                positionJSON.Candidates.reduce(reduceFn_candidate, "") +
+                "</ul>");
           }, "");
 
           announceCandidates = true;
