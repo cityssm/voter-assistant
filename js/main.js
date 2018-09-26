@@ -10,6 +10,7 @@ $(document).ready(function() {
   const addressForm_resetBtn = document.getElementById("addressForm--resetBtn");
 
   const addressResultsEle = document.getElementById("addressResults");
+  const addressResultsMessageEle = document.getElementById("addressResults-message");
   const addressDetailsEle = document.getElementById("addressDetails");
 
   const loadingHTML = "Loading... <i class=\"fas fa-spinner fa-pulse\"></i>";
@@ -127,7 +128,7 @@ $(document).ready(function() {
                   votingLocationJSON.Province + " " +
                   votingLocationJSON.PostalCode);
 
-              let votingLocationHTML = "<li class=\"list-group-item\" role=\"listitem\">" +
+              let votingLocationHTML = "<li class=\"list-group-item\">" +
                 "<div class=\"row\">" +
                 ("<p class=\"col-sm my-0\" aria-label=\"Voting location date and time\">" +
                   votingLocationJSON.DateOpenStringLocal + "<br />" +
@@ -174,7 +175,7 @@ $(document).ready(function() {
           candidateNameLabel = candidateNameSplit[1].trim() + " " + candidateNameSplit[0];
         }
 
-        return soFar + "<li class=\"list-group-item\" role=\"listitem\">" +
+        return soFar + "<li class=\"list-group-item\">" +
           candidateNameLabel +
           "</li>";
       };
@@ -198,7 +199,7 @@ $(document).ready(function() {
               "</span>" +
               "</small>" +
               "</h4>" +
-              ("<ul class=\"list-group\" role=\"list\" aria-labelledby=\"candidateList--" + positionIndex + "_label\">" +
+              ("<ul class=\"list-group\" aria-labelledby=\"candidateList--" + positionIndex + "_label\">" +
                 positionJSON.Candidates.reduce(reduceFn_candidate, "") +
                 "</ul>");
           }, "");

@@ -30,7 +30,7 @@
       </div>
     </noscript>
     <div id="siteContainer" role="presentation" style="display:none">
-      <header class="navbar navbar-dark bg-primary">
+      <header class="navbar navbar-dark bg-dark">
         <h1 class="navbar-brand mb-0"><%=setting_page_title %></h1>
         <div class="navbar-nav ml-auto">
           <a class="btn btn-lg btn-secondary" data-toggle="modal" href="#modal--register">
@@ -72,10 +72,10 @@
                   </h3>
 
                   <h4 class="mt-2" id="votingLocations--electionDay_label">Election Day</h4>
-                  <ul class="list-group" id="votingLocations--electionDay" role="list" aria-labelledby="votingLocations--electionDay_label"></ul>
+                  <ul class="list-group" id="votingLocations--electionDay" aria-labelledby="votingLocations--electionDay_label"></ul>
 
                   <h4 class="mt-2" id="votingLocations--advanced_label">Advanced Vote</h4>
-                  <ul class="list-group" id="votingLocations--advanced" role="list" aria-labelledby="votingLocations--advanced_label"></ul>
+                  <ul class="list-group" id="votingLocations--advanced" aria-labelledby="votingLocations--advanced_label"></ul>
                 </section>
               </div>
               <div class="col-md" role="presentation">
