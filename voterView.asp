@@ -31,7 +31,6 @@
 
   http.send
 
-  response.expires = 60
   response.contentType = "application/json"
 
   responseJSON = http.responseText
@@ -45,13 +44,20 @@
       potentialResponseJSON = Application(applicationKey)
 
       if ((not isnull(potentialResponseJSON)) and potentialResponseJSON <> "") then
+        ' substitute found, cache it'
+        response.expires = 60
         responseJSON = potentialResponseJSON
       end if
 
     else
+      ' good result found, cache it'
+      response.expires = 60
       Application(applicationKey) = responseJSON
     end if
 
+  else
+    ' always cache other responses'
+    response.expires = 60
   end if
 
   response.write responseJSON
