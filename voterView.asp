@@ -34,5 +34,25 @@
   response.expires = 60
   response.contentType = "application/json"
 
-  response.write http.responseText
+  responseJSON = http.responseText
+
+  ' fallback for addresses with two or more poll numbers'
+  if (request.querystring("method") = "find_voting_locations") then
+
+    applicationKey = "votingLocations:" & request.querystring("ward") & ":" & request.querystring("poll")
+
+    if (responseJSON = "" or responseJSON = "[]") then
+      potentialResponseJSON = Application(applicationKey)
+
+      if ((not isnull(potentialResponseJSON)) and potentialResponseJSON <> "") then
+        responseJSON = potentialResponseJSON
+      end if
+
+    else
+      Application(applicationKey) = responseJSON
+    end if
+
+  end if
+
+  response.write responseJSON
 %>

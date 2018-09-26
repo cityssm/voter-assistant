@@ -105,7 +105,9 @@ $(document).ready(function() {
       $.get("voterView.asp", {
           "method": "find_voting_locations",
           "streetNumber": buttonEle_streetNumber,
-          "streetName": buttonEle_streetNameFull
+          "streetName": buttonEle_streetNameFull,
+          "ward": buttonEle_ward,
+          "poll": buttonEle_poll
         }, "json")
         .done(function(json) {
 
