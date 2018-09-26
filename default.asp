@@ -40,17 +40,15 @@
       <main class="container-fluid">
         <div class="row" role="presentation">
           <nav class="col-lg-3 bg-light pt-2">
-            <form id="addressForm">
-              <div class="form-group">
-                <label id="addressForm--query-label" for="addressForm--query">Civic Address</label>
-                <div class="input-group mb-2">
-                  <input class="form-control" id="addressForm--query" role="combobox" type="text" autocomplete="off" pattern="^\d.*" aria-autocomplete="inline" aria-owns="addressResults" aria-controls="addressDetails" aria-expanded="false" />
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" id="addressForm--resetBtn" type="reset">
-                      <i class="fas fa-fw fa-times"></i>
-                      <span class="sr-only">Reset</span>
-                    </button>
-                  </div>
+            <form class="form-group" id="addressForm">
+              <label id="addressForm--query-label" for="addressForm--query">Civic Address</label>
+              <div class="input-group mb-2">
+                <input class="form-control" id="addressForm--query" role="combobox" type="text" autocomplete="off" pattern="^\d.*" aria-autocomplete="inline" aria-owns="addressResults" aria-controls="addressDetails" aria-expanded="false" />
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" id="addressForm--resetBtn" type="reset" title="Reset">
+                    <i class="fas fa-fw fa-times"></i>
+                    <span class="sr-only">Reset</span>
+                  </button>
                 </div>
               </div>
             </form>
