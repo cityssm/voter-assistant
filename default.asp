@@ -18,6 +18,14 @@
       button.list-group-item-action {
         cursor: pointer;
       }
+
+      .span-link:hover {
+        text-decoration: none;
+      }
+
+      .span-link:hover span {
+        text-decoration: underline;
+      }
     </style>
   </head>
   <body data-county-mun="<%=voterView_countyMun %>">

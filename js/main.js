@@ -10,10 +10,9 @@ $(document).ready(function() {
   const addressForm_resetBtn = document.getElementById("addressForm--resetBtn");
 
   const addressResultsEle = document.getElementById("addressResults");
-  const addressResultsMessageEle = document.getElementById("addressResults-message");
   const addressDetailsEle = document.getElementById("addressDetails");
 
-  const loadingHTML = "Loading... <i class=\"fas fa-spinner fa-pulse\"></i>";
+  const loadingHTML = "Loading... <i class=\"fas fa-spinner fa-pulse\" aria-hidden=\"true\"></i>";
   const listGroupItem_loadingHTML = "<li class=\"list-group-item\">" + loadingHTML + "</li>";
 
   const digitRegExp = /\d/;
@@ -136,8 +135,9 @@ $(document).ready(function() {
                   "</p>") +
                 ("<p class=\"col-sm my-0\" aria-label=\"Votting location address\">" +
                   (votingLocationJSON.LocationName === "" ? "" : votingLocationJSON.LocationName + "<br />") +
-                  "<a href=\"" + googleMapUrl + "\" title=\"Find this Location\" target=\"_blank\">" +
-                  votingLocationJSON.Address1 +
+                  "<a class=\"span-link\" href=\"" + googleMapUrl + "\" title=\"Find this Location\" target=\"_blank\">" +
+                  "<i class=\"fas fa-map-marker-alt\" aria-hidden=\"true\"></i> " +
+                  "<span>" + votingLocationJSON.Address1 + "</span>" +
                   "</a>" +
                   (votingLocationJSON.Address2 === "" ? "" : "<br />" + votingLocationJSON.Address2) +
                   "</p>") +
