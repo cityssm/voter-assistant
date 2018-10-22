@@ -38,12 +38,18 @@
       </div>
     </noscript>
     <div id="siteContainer" role="presentation" style="display:none">
-      <header class="navbar navbar-dark bg-dark">
+      <header class="navbar navbar-dark bg-dark navbar-expand-md">
         <h1 class="navbar-brand mb-0"><%=setting_page_title %></h1>
-        <div class="navbar-nav ml-auto">
-          <a class="btn btn-lg btn-secondary" data-toggle="modal" href="#modal--register">
-            <i class="fas fa-question-circle" aria-hidden="true"></i> Am I on the Voters List?</a>
-        </div>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="<%=setting_header_resultsURL %>">
+              <i class="fas fa-chart-bar" aria-hidden="true"></i> Election Results</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" href="#modal--register">
+              <i class="fas fa-question-circle" aria-hidden="true"></i> Am I on the Voters List?</a>
+          </li>
+        </ul>
       </header>
       <main class="container-fluid">
         <div class="row" role="presentation">

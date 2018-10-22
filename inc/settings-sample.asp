@@ -11,5 +11,7 @@
   ' APPLICATION SETTINGS '
   page_title = "Voter Services"
 
+  setting_header_resultsURL = "#"
+
   setting_footer_html = "Create your own Voter Assistant. <a class=""text-white"" href=""https://github.com/cityssm/voter-assistant/"" target=""_blank"">Fork this project on GitHub</a>."
 %>
