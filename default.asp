@@ -41,12 +41,12 @@
       <header class="navbar navbar-dark bg-dark navbar-expand-md">
         <h1 class="navbar-brand mb-0"><%=setting_page_title %></h1>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="<%=setting_header_resultsURL %>">
+          <li class="nav-item py-1 pl-2">
+            <a class="btn btn-block btn-info" href="<%=setting_header_resultsURL %>">
               <i class="fas fa-chart-bar" aria-hidden="true"></i> Election Results</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="modal" href="#modal--register">
+          <li class="nav-item py-1 pl-2">
+            <a class="btn btn-block btn-success" data-toggle="modal" href="#modal--register">
               <i class="fas fa-question-circle" aria-hidden="true"></i> Am I on the Voters List?</a>
           </li>
         </ul>
