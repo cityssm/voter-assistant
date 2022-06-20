@@ -2,9 +2,7 @@
 
 An easy-to-use, one page tool relying on the VoterView Web Services API.
 
-## See It Running
-
-_Refreshing for the 2022 election._
+![Voter Services](docs/voterServices.png)
 
 ## Requirements
 
@@ -22,3 +20,7 @@ a common case for municipalities.
 -   Create a new website using the IIS Manager application, pointing at the folder.
 -   Create a copy of `inc/settings-sample.asp` named `inc/settings.asp`.
 -   Enter your VoterView Web Services login credentials in the `settings.asp` file.
+
+## See It Running
+
+_Refreshing for the 2022 election._
