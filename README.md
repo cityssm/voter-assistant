@@ -24,3 +24,7 @@ a common case for municipalities.
 ## See It Running
 
 _Refreshing for the 2022 election._
+
+## Note
+
+**This application is in no way endorsed by [DataFix](https://datafix.com/).**
