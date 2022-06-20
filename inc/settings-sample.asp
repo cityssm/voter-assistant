@@ -9,7 +9,7 @@
   voterView_candidateList_nominationDateTo   = "2018/12/31"
 
   ' APPLICATION SETTINGS '
-  page_title = "Voter Services"
+  setting_page_title = "Voter Services"
 
   setting_header_resultsURL = "#"
 
