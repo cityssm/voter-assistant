@@ -188,6 +188,10 @@ $(document).ready(function() {
 
           candidateList_listGroups_ele.innerHTML = json.Positions.reduce(function(soFar, positionJSON, positionIndex) {
 
+            if (positionJSON.Candidates.length === 0) {
+              return soFar;
+            }
+
             return soFar + "<h4 class=\"clearfix mt-2\">" +
               "<span class=\"float-left\" id=\"candidateList--" + positionIndex + "_label\">" + positionJSON.PositionName + "</span>" +
               " <small class=\"float-right\">" +
@@ -532,7 +536,8 @@ $(document).ready(function() {
 
   $("#modal--register").on("show.bs.modal", function() {
     const iframeEle = document.getElementById("register--iframe");
-    iframeEle.setAttribute("src", "https://vrp.voterview.ca/g/" + document.body.getAttribute("data-county-mun"));
+    // iframeEle.setAttribute("src", "https://vrp.voterview.ca/g/" + document.body.getAttribute("data-county-mun"));
+    iframeEle.setAttribute("src", "https://ovs.voterview.ca/" + document.body.getAttribute("data-county-mun"));
     try {
       iFrameResize();
     } catch (e) {
