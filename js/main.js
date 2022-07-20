@@ -539,7 +539,7 @@ $(document).ready(function() {
     // iframeEle.setAttribute("src", "https://vrp.voterview.ca/g/" + document.body.getAttribute("data-county-mun"));
     iframeEle.setAttribute("src", "https://ovs.voterview.ca/" + document.body.getAttribute("data-county-mun"));
     try {
-      iFrameResize();
+      iFrameResize({checkOrigin: false});
     } catch (e) {
       // ignore
     }
