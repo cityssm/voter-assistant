@@ -543,5 +543,20 @@ $(document).ready(function() {
     } catch (e) {
       // ignore
     }
+  }); 
+  
+  /*
+   * Initialize vote by mail modal
+   */
+
+  $("#modal--voteByMail").on("show.bs.modal", function() {
+    const iframeEle = document.getElementById("voteByMail--iframe");
+    // iframeEle.setAttribute("src", "https://vrp.voterview.ca/g/" + document.body.getAttribute("data-county-mun"));
+    iframeEle.setAttribute("src", "https://vrp.voterview.ca/g/" + document.body.getAttribute("data-county-mun") + "?a=1");
+    try {
+      iFrameResize({checkOrigin: false});
+    } catch (e) {
+      // ignore
+    }
   });
 });

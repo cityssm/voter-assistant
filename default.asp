@@ -45,6 +45,10 @@
             <a class="btn btn-block btn-success" data-toggle="modal" href="#modal--register">
               <i class="fas fa-question-circle" aria-hidden="true"></i> Am I on the Voters List?</a>
           </li>
+          <li class="nav-item py-1 pl-2">
+            <a class="btn btn-block btn-success" data-toggle="modal" href="#modal--voteByMail">
+              <i class="fas fa-envelope" aria-hidden="true"></i> Vote By Mail Registration</a>
+          </li>
         </ul>
       </header>
       <main class="container-fluid">
@@ -109,6 +113,19 @@
           <div class="modal-content">
             <div class="modal-body">
               <iframe id="register--iframe" frameborder="0" style="width:100%;height:100vh"></iframe>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="modal--voteByMail">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <iframe id="voteByMail--iframe" frameborder="0" style="width:100%;height:100vh"></iframe>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
