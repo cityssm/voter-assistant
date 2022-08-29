@@ -188,7 +188,7 @@ $(document).ready(function() {
 
           candidateList_listGroups_ele.innerHTML = json.Positions.reduce(function(soFar, positionJSON, positionIndex) {
 
-            if (positionJSON.Candidates.length === 0) {
+            if (positionJSON.Candidates.length === 0 || positionJSON.NumberPositions === positionJSON.Candidates.length) {
               return soFar;
             }
 
